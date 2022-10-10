@@ -1,0 +1,16 @@
+---
+version: "3"
+services:
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:arm64v8-latest
+    container_name: duckdns
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=Europe/Oslo
+      - SUBDOMAINS=kimsec
+      - TOKEN=<token>
+      #- LOG_FILE=false #optional
+    volumes:
+      - /var/lib/docker/volumes/duckdns/_data:/config #optional
+    restart: unless-stopped

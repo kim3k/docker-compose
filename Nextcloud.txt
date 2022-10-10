@@ -1,0 +1,34 @@
+---
+version: "3"
+services: 
+  app: 
+    depends_on: 
+      - db
+    environment: 
+      - MYSQL_PASSWORD=<dbpassword>
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=kim3k
+      - MYSQL_HOST=db
+    image: nextcloud
+    links: 
+      - db
+    ports: 
+      - 82:80
+    restart: always
+    volumes: 
+      - /var/lib/docker/volumes/nextcloud:/var/www/html
+      - /var/lib/docker/volumes/nextcloud/apps:/var/www/html/custom_apps
+      - /var/lib/docker/volumes/nextcloud/config:/var/www/html/config
+      - /srv/dev-disk-by-uuid-18b2b611-8daa-4943-8c9f-ba1cc9819d1b/Nextcloud:/var/www/html/data
+      - /var/lib/docker/volumes/nextcloud/themes:/var/www/html/themes
+  db: 
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    environment: 
+      - MYSQL_ROOT_PASSWORD=<password>
+      - MYSQL_PASSWORD=<dbpassword>
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=<user>
+    image: mariadb:10.5
+    restart: always
+    volumes: 
+      - /var/lib/docker/volumes/mysqlnc/:/var/lib/mysql

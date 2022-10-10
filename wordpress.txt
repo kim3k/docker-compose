@@ -1,0 +1,30 @@
+version: '3.0'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 84:80
+      - 4443:443
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: <user>
+      WORDPRESS_DB_PASSWORD: <password here>
+      WORDPRESS_DB_NAME: kimsec
+    volumes:
+      - /var/lib/docker/volumes/wordpress/:/var/www/html
+    links:
+      - db:db
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: kimsec
+      MYSQL_USER: <user>
+      MYSQL_PASSWORD: <password here>
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - /var/lib/docker/volumes/wordpress:/var/lib/mysql

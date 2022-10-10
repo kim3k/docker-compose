@@ -1,0 +1,16 @@
+version: "2.1"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:arm64v8-latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=100
+      - VERSION=docker
+      - PLEX_CLAIM=<claim-token here>
+    volumes:
+      - /srv/dev-disk-by-uuid-18b2b611-8daa-4943-8c9f-ba1cc9819d1b/plex/config:/config
+      - /srv/dev-disk-by-uuid-18b2b611-8daa-4943-8c9f-ba1cc9819d1b/Data/TV:/tv
+      - /srv/dev-disk-by-uuid-18b2b611-8daa-4943-8c9f-ba1cc9819d1b/Data/Movies:/movies
+    restart: unless-stopped

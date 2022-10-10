@@ -1,0 +1,16 @@
+---
+version: "3"
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:arm64v8-latest
+    container_name: heimdall
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=Europe/Oslo
+    volumes:
+      - /var/lib/docker/volumes/Heimdall/_data:/config
+    ports:
+      - 83:80
+      - 8200:443
+    restart: unless-stopped
