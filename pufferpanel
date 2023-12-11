@@ -1,0 +1,18 @@
+---
+version: "3.9"
+services:
+  puffepanel:
+    image: pufferpanel/pufferpanel:latest
+    container_name: pufferpanel
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Oslo
+    volumes:
+      - /volume1/docker/pufferpanel/config:/etc/pufferpanel
+      - /volume1/docker/pufferpanel/work:/var/lib/pufferpanel
+
+    ports:
+      - 5657:5657
+      - 8083:8080
+    restart: unless-stopped
