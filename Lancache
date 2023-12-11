@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    lancache-dns:
+        restart: unless-stopped
+        container_name: lancache-dns
+        ports:
+            - 53:53/udp
+        environment:
+            - USE_GENERIC_CACHE=true
+            - LANCACHE_IP=192.168.1.x
+        image: lancachenet/lancache-dns:latest
+    monolithic:
+        restart: unless-stopped
+        container_name: lancache
+        volumes:
+            - /volume1/docker/lancache/monolithic/cache:/data/cache
+            - /volume1/docker/lancache/monolithic/logs:/data/logs
+        ports:
+            - 2280:80
+            - 20443:443
+        image: lancachenet/monolithic:latest
