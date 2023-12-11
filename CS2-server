@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  cs2-server:
+    container_name: cs2-dedicated
+    image: joedwards32/cs2
+    volumes:
+      - /volume1/docker/cs2/cs2-data/:/home/steam/cs2-dedicated/
+    ports:
+      - 27015:27015/udp
+      - 27015:27015/tcp
+    environment:
+      # Server configuration
+      - CS2_SERVERNAME=Mus Gaming    # (Set the visible name for your private server)
+      - CS2_IP="0.0.0.0"
+      - CS2_PORT=27015              # (CS2 server listen port tcp_udp)
+      - CS2_LAN=0                   # (0 - LAN mode disabled, 1 - LAN Mode enabled)
+      - CS2_RCONPW=********         # (RCON password)
+      #- CS2_PW=            # (CS2 server password)
+      - CS2_MAXPLAYERS=12           # (Max players)
+      #- CS2_ADDITIONAL_ARGS         # (Optional additional arguments to pass into cs2)
+      - CS2_GAMEALIAS="competitive"
+      - CS2_GAMETYPE=0              # (Used if CS2_GAMEALIAS not defined. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
+      - CS2_GAMEMODE=1              # (Used if CS2_GAMEALIAS not defined. See https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers)
+      - CS2_MAPGROUP=mg_active      # (Map pool)
+      - CS2_STARTMAP=de_mirage     # (Start map)
+      - CS2_BOT_DIFFICULTY="0"       (0 - easy, 1 - normal, 2 - hard, 3 - expert)
+      - CS2_BOT_QUOTA_MODE="fill"       (fill, competitive)
+      # - CS2_BOT_QUOTA="6"            (Number of bots)
