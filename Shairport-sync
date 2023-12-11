@@ -1,0 +1,13 @@
+version: '3'
+services:
+  shairport-sync:
+    container_name: airplay2
+    image: mikebrady/shairport-sync:latest
+    restart: unless-stopped
+    network_mode: host
+    devices:
+      - /dev/snd:/dev/snd
+    volumes:
+      - /home/kim3k/shairport-sync/shairport-sync.conf:/etc/shairport-sync.conf
+    environment:
+      - AIRPLAY_NAME=Lydplanke
