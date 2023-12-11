@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    restart: unless-stopped
+    ports:
+      - '8787:8080'
+    volumes:
+      - /volume1/docker/PDF/tessdata-main:/usr/share/tesseract-ocr/4.00/tessdata #Required for extra OCR languages
+      - /volume1/docker/PDF/config:/configs
+#      - /location/of/customFiles:/customFiles/
+    environment:
+      - DOCKER_ENABLE_SECURITY=false
