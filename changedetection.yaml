@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  changedetection:
+    image: ghcr.io/dgtlmoon/changedetection.io:latest
+    container_name: change-detection
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Oslo
+      - BASE_URL=https://changedetection.local.kimsec.net
+      - WEBDRIVER_URL=http://192.168.1.100:4444/wd/hub
+      #- PLAYWRIGHT_DRIVER_URL=ws://playwright-chrome:3000/?stealth=1&--web-security=false
+    hostname: change-detection
+    volumes:
+      - /volume1/docker/Changedetection/config:/datastore
+    ports:
+      - 5050:5000
+    restart: unless-stopped
+    depends_on:
+      selenium:
+        condition: service_started
+
+  #playwright-chrome:
+    #hostname: playwright-chrome
+    #image: browserless/chrome:latest
+    #environment:
+      #DEFAULT_IGNORE_HTTPS_ERRORS: 'true'
+    #container_name: playwright-chrome
+    #restart: unless-stopped
+
+  selenium:
+    image: selenium/standalone-chrome:4.17.0-20240123
+    container_name: selenium
+    restart: unless-stopped
+    ports:
+      - "4444:4444"
+    shm_size: '2g'
