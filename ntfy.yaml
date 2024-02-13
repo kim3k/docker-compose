@@ -1,0 +1,17 @@
+version: "2.1"
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Oslo
+    volumes:
+      - /volume1/docker/ntfy/cache:/var/cache/ntfy
+      - /volume1/docker/ntfy:/etc/ntfy
+    ports:
+      - 8010:80
+    restart: unless-stopped
